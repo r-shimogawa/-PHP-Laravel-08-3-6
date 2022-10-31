@@ -18,24 +18,27 @@ Route::get('/', function () {
 });
 
 use App\Http\Controllers\Admin\NewsController;
-Route::controller(NewsController::class)->prefix('admin')->group(function() {
-    Route::get('news/create', 'add')->middleware('auth');
+Route::controller(NewsController::class)->prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+    Route::get('news/create', 'add')->name('news.add');
+    Route::post('news/create', 'create')->name('news.create');
 });
 
 
 
 // 【PHP/Laravel】04　3
-use App\Http\Controllers\Admin\AAAController;
-Route::controller(AAAController::class)->group(function() {
-    Route::get('XXX', 'bbb');
-});
+//use App\Http\Controllers\Admin\AAAController;
+//Route::controller(AAAController::class)->group(function() {
+//    Route::get('XXX', 'bbb');
+//});
 
 
-// 【PHP/Laravel】04　4　+　【PHP/Laravel】07 2~3
+// 【PHP/Laravel】04　4　+　【PHP/Laravel】07 2~3 【PHP/Laravel】08 3,6
 use App\Http\Controllers\Admin\ProfileController;
-Route::controller(ProfileController::class)->prefix('admin')->group(function() {
-    Route::get('profile/create', 'add')->middleware('auth');
-    Route::get('profile/edit', 'edit')->middleware('auth');
+Route::controller(ProfileController::class)->prefix('admin')->name('admin.')->middleware('auth')->group(function() {
+    Route::get('profile/create', 'add')->name('profile.add');
+    Route::post('profile/create', 'create')->name('profile.create');
+    Route::get('profile/edit', 'edit')->name('profile.edit');
+    Route::post('profile/edit', 'update')->name('profile.update');
 });
 
 Auth::routes();
